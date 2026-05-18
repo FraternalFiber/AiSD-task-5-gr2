@@ -26,7 +26,7 @@ def run_experiment_and_report():
     print("\n# Raport z przeprowadzonych eksperymentów\n")
 
     # 1. Pojedynczy test z dokładnym raportem Markdown
-    test_n = 15
+    test_n = 25
     test_b = 50
     test_items = generate_data(test_n)
 
@@ -58,16 +58,14 @@ def run_experiment_and_report():
     print(f"| Zachłanny | {[i.id for i in items_gr]} | {weight_gr} | {val_gr} | {t_gr:.6f} | {is_optimal} |")
     print(f"| Siłowy | {[i.id for i in items_bf]} | {weight_bf} | {val_bf} | {t_bf:.6f} | Tak |\n")
 
-    # 2. Testy wydajnościowe i procent błędu zachłannego
-    print("## 2. Pomiary do wykresów i statystyki\n")
-    print("Generowanie danych... (Może to potrwać kilka sekund)\n")
+    # 2. Testy wydajnościowe
 
     results_n = []
     greedy_fails = 0
     total_tests = 0
 
-    # Testy dla t=f(n), stałe b = 50 (Ograniczamy n do 20 ze względu na alg. siłowy)
-    for n in range(5, 21):
+    # Testy dla t=f(n), stałe b = 50
+    for n in range(5, 26):
         items = generate_data(n)
         b = 50
 
@@ -105,9 +103,9 @@ def run_experiment_and_report():
 
     # Raport Markdown - teoria
     fail_percent = (greedy_fails / total_tests) * 100
-    print("## 3. Analiza teoretyczna i wnioski\n")
+    print("## 3. Wnioski\n")
     print("### Złożoność obliczeniowa zaimplementowanych algorytmów:")
-    print("- **Programowanie dynamiczne:** $O(n \\cdot b)$ (Złożoność pseudowielomianowa)")
+    print("- **Algorytm dynamiczny:** $O(n \\cdot b)$ (Złożoność pseudowielomianowa)")
     print("- **Algorytm zachłanny:** $O(n \\log n)$ (Ze względu na czas sortowania przedmiotów)")
     print("- **Algorytm siłowy:** $O(2^n)$ (Przeszukiwanie wszystkich możliwych podzbiorów)\n")
 
@@ -115,11 +113,13 @@ def run_experiment_and_report():
     print("- **Wersja decyzyjna** (czy istnieje podzbiór o wartości $\\ge V$ i wadze $\\le W$?): **NP-zupełny**")
     print("- **Wersja optymalizacyjna** (znajdź maksymalną wartość): **NP-trudny**\n")
 
-    print("### Obserwacje dotyczące algorytmu zachłannego:")
+    print("### Obserwacje dotyczące algorytmów:")
+    print('Algorytm dynamiczny zawsze znajduje optymalne rozwiązanie.')
+    print('- Algorytm siłowy jest bardzo nieefektywny ze względu na wykładniczą złożoność obliczeniową wynikającą ze sprawdzania wszystkich możliwych podzbiorów elementów.')
     print(
-        f"- W przeprowadzonych testach (losowe dane t=f(n)) algorytm zachłanny **nie znalazł rozwiązania optymalnego w {fail_percent:.2f}% przypadków**.")
+        f"- Algorytm zachłanny jest najszybszy, ale w przeprowadzonych testach (losowe dane t=f(n)) **nie znalazł rozwiązania optymalnego w {fail_percent:.2f}% przypadków**.")
     print(
-        "- **Kiedy algorytm zawodzi?** Algorytm zachłanny zawodzi, gdy pozostawia w plecaku wolną przestrzeń, która mogłaby zostać wypełniona przez przedmiot o nieco gorszym stosunku wartości do rozmiaru, ale w sumie z innymi dający większą wartość końcową. Idealnym przykładem błędu jest sytuacja, gdy pojemność plecaka wynosi 50, a mamy przedmioty: A (w: 30, v: 31, ratio: 1.03) oraz dwa przedmioty B i C (w: 25, v: 25, ratio: 1). Algorytm wybierze A, a potem nie zmieści B ani C. Wynik: 31. Optymalnie jest wziąć B i C. Wynik: 50.\n")
+        "   - Algorytm nie znajdzie optimum, gdy pozostawia w plecaku wolną przestrzeń, która mogłaby zostać wypełniona przez przedmiot o nieco gorszym stosunku wartości do rozmiaru, ale w sumie z innymi dający większą wartość końcową. Idealnym przykładem błędu jest sytuacja, gdy pojemność plecaka wynosi 50, a mamy przedmioty: A (w: 30, v: 31, ratio: 1.03) oraz dwa przedmioty B i C (w: 25, v: 25, ratio: 1). Algorytm wybierze A, a potem nie zmieści B ani C. Wynik: 31. Optymalnie jest wziąć B i C (wynik: 50.)\n")
 
     # Wywołanie wykresów
     plot_t_vs_n(results_n)
