@@ -99,7 +99,9 @@ def run_experiment_and_report():
         b = random.randint(10, 100)
         items = generate_data(n)
         _, t_dp = measure_time(knapsack_dynamic, items, b)
-        results_nb.append({'n': n, 'b': b, 't_dp': t_dp})
+        _, t_gr = measure_time(knapsack_greedy, items, b)
+        _, t_bf = measure_time(knapsack_brute_force, items, b)
+        results_nb.append({'n': n, 'b': b, 't_dp': t_dp, 't_gr': t_gr, 't_bf': t_bf})
 
     # Raport Markdown - teoria
     fail_percent = (greedy_fails / total_tests) * 100
@@ -120,7 +122,6 @@ def run_experiment_and_report():
         "- **Kiedy algorytm zawodzi?** Algorytm zachłanny zawodzi, gdy pozostawia w plecaku wolną przestrzeń, która mogłaby zostać wypełniona przez przedmiot o nieco gorszym stosunku wartości do rozmiaru, ale w sumie z innymi dający większą wartość końcową. Idealnym przykładem błędu jest sytuacja, gdy pojemność plecaka wynosi 50, a mamy przedmioty: A (w: 30, v: 31, ratio: 1.03) oraz dwa przedmioty B i C (w: 25, v: 25, ratio: 1). Algorytm wybierze A, a potem nie zmieści B ani C. Wynik: 31. Optymalnie jest wziąć B i C. Wynik: 50.\n")
 
     # Wywołanie wykresów
-    print("Zamykanie okna z wykresem otworzy kolejny...")
     plot_t_vs_n(results_n)
     plot_t_vs_b(results_b)
     plot_t_vs_n_b(results_nb)
