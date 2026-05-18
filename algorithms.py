@@ -2,7 +2,7 @@ import itertools
 
 
 def knapsack_dynamic(items, capacity):
-    """Algorytm programowania dynamicznego (Złożoność: O(n*b))"""
+    """Algorytm programowania dynamicznego"""
     n = len(items)
     dp = [[0] * (capacity + 1) for _ in range(n + 1)]
 
@@ -36,7 +36,7 @@ def knapsack_dynamic(items, capacity):
 
 
 def knapsack_greedy(items, capacity):
-    """Algorytm zachłanny sortujący po opłacalności (Złożoność: O(n log n))"""
+    """Algorytm zachłanny sortujący po opłacalności"""
     sorted_items = sorted(items, key=lambda x: x.ratio, reverse=True)
 
     total_value = 0
@@ -53,7 +53,7 @@ def knapsack_greedy(items, capacity):
 
 
 def knapsack_brute_force(items, capacity):
-    """Algorytm siłowy (Złożoność: O(2^n))"""
+    """Algorytm siłowy"""
     max_value = 0
     best_combination = []
 

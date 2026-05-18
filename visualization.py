@@ -50,7 +50,7 @@ def plot_t_vs_b(results):
 
 def plot_t_vs_n_b(results):
     """
-    Wykresy 3D
+    Wykresy zależności czasu obliczeń (t) od liczby przedmiotów (n) i pojemności plecaka (b)
     """
     ns = [r['n'] for r in results]
     bs = [r['b'] for r in results]
