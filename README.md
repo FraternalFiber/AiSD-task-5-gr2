@@ -58,7 +58,7 @@
 - **Wersja optymalizacyjna** (znajdź maksymalną wartość): **NP-trudny**
 
 ### Obserwacje dotyczące algorytmów:
-Algorytm dynamiczny zawsze znajduje optymalne rozwiązanie.
+- Algorytm dynamiczny zawsze znajduje optymalne rozwiązanie.
 - Algorytm siłowy jest bardzo nieefektywny ze względu na wykładniczą złożoność obliczeniową wynikającą ze sprawdzania wszystkich możliwych podzbiorów elementów.
 - Algorytm zachłanny jest najszybszy, ale w przeprowadzonych testach (losowe dane t=f(n)) **nie znalazł rozwiązania optymalnego w 42.86% przypadków**.
   - Algorytm nie znajdzie optimum, gdy pozostawia w plecaku wolną przestrzeń, która mogłaby zostać wypełniona przez przedmiot o nieco gorszym stosunku wartości do rozmiaru, ale w sumie z innymi dający większą wartość końcową. Idealnym przykładem błędu jest sytuacja, gdy pojemność plecaka wynosi 50, a mamy przedmioty: A (w: 30, v: 31, ratio: 1.03) oraz dwa przedmioty B i C (w: 25, v: 25, ratio: 1). Algorytm wybierze A, a potem nie zmieści B ani C. Wynik: 31. Optymalnie jest wziąć B i C (wynik: 50.)
